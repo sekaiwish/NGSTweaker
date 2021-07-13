@@ -42,6 +42,7 @@ namespace NGSTweaker
             this.ListActive.FormattingEnabled = true;
             this.ListActive.Location = new System.Drawing.Point(12, 25);
             this.ListActive.Name = "ListActive";
+            this.ListActive.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.ListActive.Size = new System.Drawing.Size(195, 277);
             this.ListActive.TabIndex = 0;
             // 
@@ -50,6 +51,7 @@ namespace NGSTweaker
             this.ListInactive.FormattingEnabled = true;
             this.ListInactive.Location = new System.Drawing.Point(257, 25);
             this.ListInactive.Name = "ListInactive";
+            this.ListInactive.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.ListInactive.Size = new System.Drawing.Size(195, 277);
             this.ListInactive.TabIndex = 1;
             // 

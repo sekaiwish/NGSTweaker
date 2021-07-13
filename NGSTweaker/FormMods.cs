@@ -20,7 +20,17 @@ namespace NGSTweaker
         private void FormMods_Load(object sender, EventArgs e)
         {
             utils.UnpackMods();
-            // populate listboxes
+            string[] ModFolders = System.IO.Directory.GetDirectories(Properties.Settings.Default.BinPath + @"\data\mods\");
+            foreach (string ModFolder in ModFolders)
+            {
+                foreach (string ModFile in System.IO.Directory.GetFiles(ModFolder))
+                {
+                    if (System.IO.Path.GetFileName(ModFile).Equals("mod.xml"))
+                    {
+                        // import xml data
+                    }
+                }
+            }
         }
         private void ButtonDisable_Click(object sender, EventArgs e)
         {
