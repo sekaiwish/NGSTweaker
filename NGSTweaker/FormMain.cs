@@ -33,6 +33,8 @@ namespace NGSTweaker
         }
         private void LaunchButton_Click(object sender, EventArgs e)
         {
+            LaunchButton.Enabled = false;
+            LaunchButton.Text = "Launching...";
             ProcessStartInfo gameInfo = new ProcessStartInfo()
             {
                 FileName = ExecPath,
@@ -45,6 +47,10 @@ namespace NGSTweaker
                 StartInfo = gameInfo
             };
             gameProcess.Start();
+            LaunchButton.Text = "Running...";
+            gameProcess.WaitForExit();
+            LaunchButton.Enabled = true;
+            LaunchButton.Text = "Launch";
         }
         private void SettingsButton_Click(object sender, EventArgs e)
         {
