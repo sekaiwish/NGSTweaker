@@ -58,6 +58,7 @@ namespace NGSTweaker
                         if (Entry.FullName.Equals("mod.xml"))
                         {
                             ZipFile.ExtractToDirectory(ZipMod, ModPath + System.IO.Path.GetFileNameWithoutExtension(ZipName));
+                            Archive.Dispose();
                             System.IO.File.Delete(ZipMod);
                             break;
                         }
