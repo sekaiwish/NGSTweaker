@@ -46,13 +46,23 @@ namespace NGSTweaker
         }
         public void UnpackMods()
         {
-            string[] ZipMods = System.IO.Directory.GetFiles(Properties.Settings.Default.BinPath + @"\data\mods", "*.zip");
+            string ModPath = Properties.Settings.Default.BinPath + @"\data\mods\";
+            string[] ZipMods = System.IO.Directory.GetFiles(ModPath, "*.zip");
             foreach (string ZipMod in ZipMods)
             {
-                // use ziparchive.entries to find if mod.xml exists, only extract if true
-                string ZipName = ZipMod.Substring(ZipMod.LastIndexOf(@"\"));
-                ZipFile.ExtractToDirectory(ZipMod, Properties.Settings.Default.BinPath + @"\data\mods\" + ZipName.Substring(0, ZipName.LastIndexOf(".")));
-                System.IO.File.Delete(ZipMod);
+                string ZipName = System.IO.Path.GetFileName(ZipMod);
+                using (ZipArchive Archive = ZipFile.OpenRead(ZipMod))
+                {
+                    foreach (ZipArchiveEntry Entry in Archive.Entries)
+                    {
+                        if (Entry.FullName.Equals("mod.xml"))
+                        {
+                            ZipFile.ExtractToDirectory(ZipMod, ModPath + System.IO.Path.GetFileNameWithoutExtension(ZipName));
+                            System.IO.File.Delete(ZipMod);
+                            break;
+                        }
+                    }
+                }
             }
         }
     }
