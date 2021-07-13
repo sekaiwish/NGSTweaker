@@ -25,5 +25,5 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
-        name: NGSTweaker
-        path: "./NGSTweaker/bin/Release/NGSTweaker"
+        name: NGSTweaker.exe
+        path: "./NGSTweaker/bin/Release/NGSTweaker.exe"
