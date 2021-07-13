@@ -19,7 +19,13 @@ namespace NGSTweaker
                 ofd.ShowDialog();
                 if (ofd.FileName != string.Empty)
                 {
-                    Properties.Settings.Default.BinPath = ofd.FileName.Substring(0, ofd.FileName.LastIndexOf(@"\"));
+                    string BinPath = ofd.FileName.Substring(0, ofd.FileName.LastIndexOf(@"\"));
+                    Properties.Settings.Default.BinPath = BinPath;
+                    string ModFolder = BinPath + @"\data\mods";
+                    if (!System.IO.Directory.Exists(ModFolder))
+                    {
+                        System.IO.Directory.CreateDirectory(ModFolder);
+                    }
                     Properties.Settings.Default.Save();
                 }
                 return ofd.FileName;
