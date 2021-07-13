@@ -104,7 +104,7 @@ namespace NGSTweaker
             this.Controls.Add(this.ButtonDisable);
             this.Controls.Add(this.ListInactive);
             this.Controls.Add(this.ListActive);
-            this.Icon = global::NGSTweaker.Properties.Resources.NGS;
+            this.Icon = global::NGSTweaker.Properties.Resources.IconNGS;
             this.Name = "FormMods";
             this.Text = "Mod Manager";
             this.Load += new System.EventHandler(this.FormMods_Load);

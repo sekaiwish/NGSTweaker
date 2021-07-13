@@ -239,7 +239,7 @@ namespace NGSTweaker
             this.Controls.Add(this.BinButton);
             this.Controls.Add(this.BinText);
             this.Controls.Add(this.BinLabel);
-            this.Icon = global::NGSTweaker.Properties.Resources.NGS;
+            this.Icon = global::NGSTweaker.Properties.Resources.IconNGS;
             this.Name = "FormSettings";
             this.Text = "Tweaker Settings";
             this.Load += new System.EventHandler(this.FormSettings_Load);

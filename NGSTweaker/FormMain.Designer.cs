@@ -111,7 +111,7 @@ namespace NGSTweaker
             this.Controls.Add(this.LabelTitle);
             this.Controls.Add(this.SettingsButton);
             this.Controls.Add(this.LaunchButton);
-            this.Icon = global::NGSTweaker.Properties.Resources.NGS;
+            this.Icon = global::NGSTweaker.Properties.Resources.IconNGS;
             this.Name = "FormMain";
             this.Text = "NGS Tweaker";
             this.Load += new System.EventHandler(this.FormMain_Load);
