@@ -12,14 +12,14 @@ namespace NGSTweaker
 {
     public partial class FormMods : Form
     {
-        private Util utils = new Util();
+        private Util Utils = new Util();
         public FormMods()
         {
             InitializeComponent();
         }
         private void FormMods_Load(object sender, EventArgs e)
         {
-            utils.UnpackMods();
+            Utils.UnpackMods();
             string[] ModFolders = System.IO.Directory.GetDirectories(Properties.Settings.Default.BinPath + @"\data\mods\");
             foreach (string ModFolder in ModFolders)
             {

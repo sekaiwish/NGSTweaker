@@ -13,7 +13,7 @@ namespace NGSTweaker
 {
     public partial class FormMain : Form
     {
-        private Util utils = new Util();
+        private Util Utils = new Util();
         private string ExecPath;
         private FormSettings _FormSettings;
         private FormMods _FormMods;
@@ -24,7 +24,7 @@ namespace NGSTweaker
         }
         private void UpdateButtons()
         {
-            ExecPath = utils.GetExecPath();
+            ExecPath = Utils.GetExecPath();
             if (ExecPath != string.Empty)
             {
                 LaunchButton.Enabled = true;
@@ -74,12 +74,12 @@ namespace NGSTweaker
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
-            ExecPath = utils.GetExecPath();
+            ExecPath = Utils.GetExecPath();
             if (ExecPath == string.Empty)
             {
                 MessageBox.Show("Binary folder has not been set, please locate pso2.exe.", "NGS Tweaker Setup", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                utils.SetBinPath();
-                ExecPath = utils.GetExecPath();
+                Utils.SetBinPath();
+                ExecPath = Utils.GetExecPath();
                 UpdateButtons();
             }
             else

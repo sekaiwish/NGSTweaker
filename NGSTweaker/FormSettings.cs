@@ -13,14 +13,14 @@ namespace NGSTweaker
 {
     public partial class FormSettings : Form
     {
-        private Util utils = new Util();
+        private Util Utils = new Util();
         public FormSettings()
         {
             InitializeComponent();
         }
         private void BinButton_Click(object sender, EventArgs e)
         {
-            BinText.Text = utils.SetBinPath();
+            BinText.Text = Utils.SetBinPath();
         }
         private void FormSettings_Load(object sender, EventArgs e)
         {
