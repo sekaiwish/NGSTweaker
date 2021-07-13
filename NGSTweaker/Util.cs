@@ -39,5 +39,9 @@ namespace NGSTweaker
             }
             return string.Empty;
         }
+        public void UnpackMods()
+        {
+            // scan mods for zip archives and unpack to directory
+        }
     }
 }
