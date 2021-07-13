@@ -49,8 +49,10 @@ namespace NGSTweaker
             string[] ZipMods = System.IO.Directory.GetFiles(Properties.Settings.Default.BinPath + @"\data\mods", "*.zip");
             foreach (string ZipMod in ZipMods)
             {
+                // use ziparchive.entries to find if mod.xml exists, only extract if true
                 string ZipName = ZipMod.Substring(ZipMod.LastIndexOf(@"\"));
                 ZipFile.ExtractToDirectory(ZipMod, Properties.Settings.Default.BinPath + @"\data\mods\" + ZipName.Substring(0, ZipName.LastIndexOf(".")));
+                System.IO.File.Delete(ZipMod);
             }
         }
     }

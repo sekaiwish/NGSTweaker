@@ -20,6 +20,7 @@ namespace NGSTweaker
         private void FormMods_Load(object sender, EventArgs e)
         {
             utils.UnpackMods();
+            // populate listboxes
         }
         private void ButtonDisable_Click(object sender, EventArgs e)
         {
