@@ -22,10 +22,10 @@ namespace NGSTweaker
         {
             BinText.Text = utils.SetBinPath();
         }
-
         private void FormSettings_Load(object sender, EventArgs e)
         {
             BinText.Text = Properties.Settings.Default.BinPath;
+            // read user.pso2 into form state
         }
     }
 }
