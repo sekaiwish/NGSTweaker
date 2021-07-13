@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO.Compression;
 
 namespace NGSTweaker
 {
@@ -17,18 +18,22 @@ namespace NGSTweaker
                 ofd.Title = "Choose PSO2 Executable...";
                 ofd.Filter = "PSO2 Executable|pso2.exe|All files (*.*)|*.*";
                 ofd.ShowDialog();
+                string BinPath = string.Empty;
                 if (ofd.FileName != string.Empty)
                 {
-                    string BinPath = ofd.FileName.Substring(0, ofd.FileName.LastIndexOf(@"\"));
+                    BinPath = ofd.FileName.Substring(0, ofd.FileName.LastIndexOf(@"\"));
                     Properties.Settings.Default.BinPath = BinPath;
-                    string ModFolder = BinPath + @"\data\mods";
-                    if (!System.IO.Directory.Exists(ModFolder))
+                    string[] Folders = { BinPath + @"\data\mods", BinPath + @"\data\backup" };
+                    foreach (string Folder in Folders)
                     {
-                        System.IO.Directory.CreateDirectory(ModFolder);
+                        if (!System.IO.Directory.Exists(Folder))
+                        {
+                            System.IO.Directory.CreateDirectory(Folder);
+                        }
                     }
                     Properties.Settings.Default.Save();
                 }
-                return ofd.FileName;
+                return BinPath;
             }
         }
         public string GetExecPath()

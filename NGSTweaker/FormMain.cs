@@ -22,6 +22,15 @@ namespace NGSTweaker
             InitializeComponent();
 
         }
+        private void UpdateButtons()
+        {
+            ExecPath = utils.GetExecPath();
+            if (ExecPath != string.Empty)
+            {
+                LaunchButton.Enabled = true;
+                ModsButton.Enabled = true;
+            }
+        }
         private void LaunchButton_Click(object sender, EventArgs e)
         {
             ProcessStartInfo gameInfo = new ProcessStartInfo()
@@ -42,7 +51,7 @@ namespace NGSTweaker
             if (_FormSettings == null)
             {
                 _FormSettings = new FormSettings();
-                _FormSettings.FormClosed += (o, ea) => _FormSettings = null;
+                _FormSettings.FormClosed += (o, ea) => { UpdateButtons(); _FormSettings = null; };
             }
             else
             {
@@ -71,14 +80,11 @@ namespace NGSTweaker
                 MessageBox.Show("Binary folder has not been set, please locate pso2.exe.", "NGS Tweaker Setup", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 utils.SetBinPath();
                 ExecPath = utils.GetExecPath();
-                if (ExecPath != string.Empty)
-                {
-                    LaunchButton.Enabled = true;
-                }
+                UpdateButtons();
             }
             else
             {
-                LaunchButton.Enabled = true;
+                UpdateButtons();
             }
             LaunchButton.Focus();
         }

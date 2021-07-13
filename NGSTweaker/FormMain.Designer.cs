@@ -71,6 +71,7 @@ namespace NGSTweaker
             // 
             // ModsButton
             // 
+            this.ModsButton.Enabled = false;
             this.ModsButton.Location = new System.Drawing.Point(12, 207);
             this.ModsButton.Name = "ModsButton";
             this.ModsButton.Size = new System.Drawing.Size(108, 30);

@@ -20,8 +20,7 @@ namespace NGSTweaker
         }
         private void BinButton_Click(object sender, EventArgs e)
         {
-            utils.SetBinPath();
-            BinText.Text = Properties.Settings.Default.BinPath;
+            BinText.Text = utils.SetBinPath();
         }
 
         private void FormSettings_Load(object sender, EventArgs e)
