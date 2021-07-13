@@ -25,19 +25,23 @@ namespace NGSTweaker
             {
                 foreach (string ModFile in System.IO.Directory.GetFiles(ModFolder))
                 {
-                    if (System.IO.Path.GetFileName(ModFile).Equals("mod.xml"))
+                    if (System.IO.Path.GetFileName(ModFile).Equals("mod.json"))
                     {
-                        // import xml data
+                        string ModTitle = Utils.GetModTitle(ModFolder + @"\mod.json");
+                        ListInactive.Items.Add(ModTitle);
+                        break;
                     }
                 }
             }
         }
         private void ButtonDisable_Click(object sender, EventArgs e)
         {
+            ListBox.SelectedIndexCollection ToDisable = ListActive.SelectedIndices;
             // disable selected mods
         }
         private void ButtonEnable_Click(object sender, EventArgs e)
         {
+            ListBox.SelectedIndexCollection ToEnable = ListInactive.SelectedIndices;
             // enable selected mods
         }
     }

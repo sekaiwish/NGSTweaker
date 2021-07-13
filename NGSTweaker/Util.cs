@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Compression;
+using System.Text.Json;
 
 namespace NGSTweaker
 {
@@ -64,6 +65,14 @@ namespace NGSTweaker
                         }
                     }
                 }
+            }
+        }
+        public string GetModTitle(string ModJson)
+        {
+            using (var sr = new System.IO.StreamReader(ModJson))
+            using (JsonDocument ModInfo = JsonDocument.Parse(sr.BaseStream))
+            {
+                return ModInfo.RootElement.GetProperty("ModInfo").GetProperty("Title").GetString();
             }
         }
     }
