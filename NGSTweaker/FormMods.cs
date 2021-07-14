@@ -13,6 +13,8 @@ namespace NGSTweaker
     public partial class FormMods : Form
     {
         private Util Utils = new Util();
+        private Util.ModConfig[] ModConfigs = new Util.ModConfig[] { };
+        private List<Util.Mod> Mods = new List<Util.Mod>();
         public FormMods()
         {
             InitializeComponent();
@@ -20,6 +22,7 @@ namespace NGSTweaker
         private void FormMods_Load(object sender, EventArgs e)
         {
             Utils.UnpackMods();
+            ModConfigs = Utils.GetModConfig();
             string[] ModFolders = System.IO.Directory.GetDirectories(Properties.Settings.Default.BinPath + @"\data\mods\");
             foreach (string ModFolder in ModFolders)
             {
@@ -28,7 +31,9 @@ namespace NGSTweaker
                     if (System.IO.Path.GetFileName(ModFile).Equals("mod.json"))
                     {
                         Util.Mod Mod = Utils.GetModData(ModFolder + @"\mod.json");
-                        ListInactive.Items.Add(Mod.Title);
+                        Mods.Add(Mod);
+                        // find Name-Version in ModConfigs and read value of pair
+                        ListInactive.Items.Add(String.Format("{0} ({1})", Mod.Title, Mod.Version));
                         break;
                     }
                 }

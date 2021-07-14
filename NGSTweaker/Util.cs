@@ -18,6 +18,11 @@ namespace NGSTweaker
             public string Name;
             public string Title;
         }
+        public struct ModConfig
+        {
+            public string NameVersion;
+            public bool Active;
+        }
         public string SetBinPath()
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
@@ -38,6 +43,11 @@ namespace NGSTweaker
                         {
                             System.IO.Directory.CreateDirectory(Folder);
                         }
+                    }
+                    string ConfigPath = BinPath + @"\data\config.json";
+                    if (!System.IO.File.Exists(ConfigPath))
+                    {
+                        System.IO.File.Create(ConfigPath);
                     }
                     Properties.Settings.Default.Save();
                 }
@@ -63,21 +73,42 @@ namespace NGSTweaker
                 {
                     foreach (ZipArchiveEntry Entry in Archive.Entries)
                     {
-                        if (Entry.FullName.Equals("mod.xml"))
+                        if (Entry.FullName.Equals("mod.json"))
                         {
+                            // extract and read the mod.json file and extract to directory according to Name-Version
                             ZipFile.ExtractToDirectory(ZipMod, ModPath + System.IO.Path.GetFileNameWithoutExtension(ZipName));
                             Archive.Dispose();
                             System.IO.File.Delete(ZipMod);
+                            // register the mod in config.json as inactive
                             break;
                         }
                     }
                 }
             }
         }
+        public ModConfig[] GetModConfig()
+        {
+            string ModConfigPath = Properties.Settings.Default.BinPath + @"\data\config.json";
+            List<ModConfig> ModConfigs = new List<ModConfig>();
+            using (var sr = new System.IO.StreamReader(ModConfigPath))
+            using (var ModConfigFile = JsonDocument.Parse(sr.BaseStream))
+            {
+                foreach (var Mod in ModConfigFile.RootElement.EnumerateObject())
+                {
+                    ModConfig ModConfig = new ModConfig
+                    {
+                        NameVersion = Mod.Name,
+                        Active = Mod.Value.GetBoolean()
+                    };
+                    ModConfigs.Add(ModConfig);
+                }
+                return ModConfigs.ToArray();
+            }
+        }
         public Mod GetModData(string ModJson)
         {
             using (var sr = new System.IO.StreamReader(ModJson))
-            using (JsonDocument ModInfo = JsonDocument.Parse(sr.BaseStream))
+            using (var ModInfo = JsonDocument.Parse(sr.BaseStream))
             {
                 Mod Mod = new Mod
                 {
