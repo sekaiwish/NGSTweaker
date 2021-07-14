@@ -103,7 +103,14 @@ namespace NGSTweaker
                         if (Entry.FullName.Equals("mod.json"))
                         {
                             string NameVersion = GetNameVersion(Entry.Open());
-                            ZipFile.ExtractToDirectory(ZipMod, ModPath + NameVersion);
+                            try
+                            {
+                                ZipFile.ExtractToDirectory(ZipMod, ModPath + NameVersion);
+                            }
+                            catch (System.IO.IOException)
+                            {
+                                break;
+                            }
                             Archive.Dispose();
                             System.IO.File.Delete(ZipMod);
                             // register the mod in config.json as inactive
