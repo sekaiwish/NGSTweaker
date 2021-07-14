@@ -19,8 +19,8 @@ namespace NGSTweaker
         private FormMods _FormMods;
         public FormMain()
         {
+            Utils.WriteLog("Starting NGS Tweaker...");
             InitializeComponent();
-
         }
         private void UpdateButtons()
         {
@@ -33,6 +33,7 @@ namespace NGSTweaker
         }
         private void LaunchButton_Click(object sender, EventArgs e)
         {
+            Utils.WriteLog("Launching PSO2");
             LaunchButton.Enabled = false;
             LaunchButton.Text = "Launching...";
             ProcessStartInfo gameInfo = new ProcessStartInfo()

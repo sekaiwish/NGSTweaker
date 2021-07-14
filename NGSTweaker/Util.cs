@@ -23,6 +23,11 @@ namespace NGSTweaker
             public string NameVersion;
             public bool Active;
         }
+        public void WriteLog(string Log)
+        {
+            string LogPath = Properties.Settings.Default.BinPath + @"\data\log.txt";
+            System.IO.File.AppendAllText(LogPath, String.Format("[{0}] {1}\n", DateTime.Now.ToString(), Log));
+        }
         public string SetBinPath()
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
@@ -36,20 +41,26 @@ namespace NGSTweaker
                 {
                     BinPath = ofd.FileName.Substring(0, ofd.FileName.LastIndexOf(@"\"));
                     Properties.Settings.Default.BinPath = BinPath;
+                    Properties.Settings.Default.Save();
+                    WriteLog("BinPath updated to " + BinPath);
                     string[] Folders = { BinPath + @"\data\mods", BinPath + @"\data\backup" };
                     foreach (string Folder in Folders)
                     {
                         if (!System.IO.Directory.Exists(Folder))
                         {
                             System.IO.Directory.CreateDirectory(Folder);
+                            WriteLog("Created directory " + Folder);
                         }
                     }
-                    string ConfigPath = BinPath + @"\data\config.json";
-                    if (!System.IO.File.Exists(ConfigPath))
+                    string[] Files = { BinPath + @"\data\config.json", BinPath + @"\data\log.txt" };
+                    foreach (string File in Files)
                     {
-                        System.IO.File.Create(ConfigPath);
+                        if (!System.IO.File.Exists(File))
+                        {
+                            System.IO.File.Create(File);
+                            WriteLog("Created file " + File);
+                        }
                     }
-                    Properties.Settings.Default.Save();
                 }
                 return BinPath;
             }
@@ -98,17 +109,21 @@ namespace NGSTweaker
                 string ZipName = System.IO.Path.GetFileName(ZipMod);
                 using (ZipArchive Archive = ZipFile.OpenRead(ZipMod))
                 {
+                    bool JsonFound = false;
                     foreach (ZipArchiveEntry Entry in Archive.Entries)
                     {
                         if (Entry.FullName.Equals("mod.json"))
                         {
+                            JsonFound = !JsonFound;
                             string NameVersion = GetNameVersion(Entry.Open());
                             try
                             {
                                 ZipFile.ExtractToDirectory(ZipMod, ModPath + NameVersion);
+                                WriteLog("Unpacked mod " + ZipName);
                             }
                             catch (System.IO.IOException)
                             {
+                                WriteLog("Duplicate mod found when extracting " + ZipName);
                                 break;
                             }
                             Archive.Dispose();
@@ -116,6 +131,10 @@ namespace NGSTweaker
                             // register the mod in config.json as inactive
                             break;
                         }
+                    }
+                    if (!JsonFound)
+                    {
+                        WriteLog("mod.json not found in " + ZipName);
                     }
                 }
             }
