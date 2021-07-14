@@ -32,9 +32,21 @@ namespace NGSTweaker
                     {
                         Util.Mod Mod = Utils.GetModData(ModFolder + @"\mod.json");
                         Mods.Add(Mod);
-                        // find Name-Version in ModConfigs and read value of pair
-                        ListInactive.Items.Add(String.Format("{0} ({1})", Mod.Title, Mod.Version));
-                        break;
+                        foreach (var ModConfig in ModConfigs)
+                        {
+                            if (ModConfig.NameVersion == Mod.Name + "-" + Mod.Version)
+                            {
+                                if (ModConfig.Active)
+                                {
+                                    ListActive.Items.Add(String.Format("{0} ({1})", Mod.Title, Mod.Version));
+                                }
+                                else
+                                {
+                                    ListInactive.Items.Add(String.Format("{0} ({1})", Mod.Title, Mod.Version));
+                                }
+                                break;
+                            }
+                        }
                     }
                 }
             }
