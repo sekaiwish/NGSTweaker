@@ -11,6 +11,13 @@ namespace NGSTweaker
 {
     public class Util
     {
+        public struct Mod
+        {
+            public string Author;
+            public decimal Version;
+            public string Name;
+            public string Title;
+        }
         public string SetBinPath()
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
@@ -67,12 +74,19 @@ namespace NGSTweaker
                 }
             }
         }
-        public string GetModTitle(string ModJson)
+        public Mod GetModData(string ModJson)
         {
             using (var sr = new System.IO.StreamReader(ModJson))
             using (JsonDocument ModInfo = JsonDocument.Parse(sr.BaseStream))
             {
-                return ModInfo.RootElement.GetProperty("ModInfo").GetProperty("Title").GetString();
+                Mod Mod = new Mod
+                {
+                    Author = ModInfo.RootElement.GetProperty("Author").GetString(),
+                    Version = ModInfo.RootElement.GetProperty("Version").GetDecimal(),
+                    Name = ModInfo.RootElement.GetProperty("Name").GetString(),
+                    Title = ModInfo.RootElement.GetProperty("Title").GetString()
+                };
+                return Mod;
             }
         }
     }

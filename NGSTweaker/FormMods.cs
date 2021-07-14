@@ -27,8 +27,8 @@ namespace NGSTweaker
                 {
                     if (System.IO.Path.GetFileName(ModFile).Equals("mod.json"))
                     {
-                        string ModTitle = Utils.GetModTitle(ModFolder + @"\mod.json");
-                        ListInactive.Items.Add(ModTitle);
+                        Util.Mod Mod = Utils.GetModData(ModFolder + @"\mod.json");
+                        ListInactive.Items.Add(Mod.Title);
                         break;
                     }
                 }
