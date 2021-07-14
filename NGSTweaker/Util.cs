@@ -139,7 +139,7 @@ namespace NGSTweaker
                 }
             }
         }
-        public ModConfig[] GetModConfig()
+        public ModConfig[] GetModConfigs()
         {
             string ModConfigPath = Properties.Settings.Default.BinPath + @"\data\config.json";
             List<ModConfig> ModConfigs = new List<ModConfig>();

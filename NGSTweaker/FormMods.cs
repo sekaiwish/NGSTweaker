@@ -22,7 +22,7 @@ namespace NGSTweaker
         private void FormMods_Load(object sender, EventArgs e)
         {
             Utils.UnpackMods();
-            ModConfigs = Utils.GetModConfig();
+            ModConfigs = Utils.GetModConfigs();
             string[] ModFolders = System.IO.Directory.GetDirectories(Properties.Settings.Default.BinPath + @"\data\mods\");
             foreach (string ModFolder in ModFolders)
             {
