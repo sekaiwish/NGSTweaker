@@ -62,6 +62,33 @@ namespace NGSTweaker
             }
             return string.Empty;
         }
+        public string GetNameVersion(System.IO.Stream Json)
+        {
+            string Name = string.Empty;
+            string Version = string.Empty;
+            using (var sr = new System.IO.StreamReader(Json))
+            using (var ModJson = JsonDocument.Parse(sr.BaseStream))
+            {
+                foreach (var ModJsonObject in ModJson.RootElement.EnumerateObject())
+                {
+                    if (Name != string.Empty && Version != string.Empty)
+                    {
+                        break;
+                    }
+                    if (ModJsonObject.NameEquals("Name"))
+                    {
+                        Name = ModJsonObject.Value.GetString();
+                        continue;
+                    }
+                    if (ModJsonObject.NameEquals("Version"))
+                    {
+                        Version = ModJsonObject.Value.ToString();
+                        continue;
+                    }
+                }
+                return Name + "-" + Version;
+            }
+        }
         public void UnpackMods()
         {
             string ModPath = Properties.Settings.Default.BinPath + @"\data\mods\";
@@ -75,8 +102,8 @@ namespace NGSTweaker
                     {
                         if (Entry.FullName.Equals("mod.json"))
                         {
-                            // extract and read the mod.json file and extract to directory according to Name-Version
-                            ZipFile.ExtractToDirectory(ZipMod, ModPath + System.IO.Path.GetFileNameWithoutExtension(ZipName));
+                            string NameVersion = GetNameVersion(Entry.Open());
+                            ZipFile.ExtractToDirectory(ZipMod, ModPath + NameVersion);
                             Archive.Dispose();
                             System.IO.File.Delete(ZipMod);
                             // register the mod in config.json as inactive

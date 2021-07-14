@@ -165,9 +165,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\NGS.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\ImageNGS.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
